@@ -1,9 +1,17 @@
 package calculator.nodes;
 
+import calculator.Context;
+
 public class MultiplyOperator extends NodeOperator {
 
+    public MultiplyOperator(Context context) {
+        super(context);
+    }
+
     @Override
-    public int interpret() {
-        return getLeftParameter().interpret() * getRightParameter().interpret();
+    public Node interpret() {
+        int leftResult = ((NumberValue)(getLeftParameter().interpret())).getValue();
+        int rightResult = ((NumberValue)getRightParameter().interpret()).getValue();
+        return new NumberValue(leftResult * rightResult);
     }
 }

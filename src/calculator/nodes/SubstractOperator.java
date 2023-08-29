@@ -1,9 +1,17 @@
 package calculator.nodes;
 
+import calculator.Context;
+
 public class SubstractOperator extends NodeOperator {
 
+    public SubstractOperator(Context context) {
+        super(context);
+    }
+
     @Override
-    public int interpret() {
-        return (getLeftParameter() != null ? getLeftParameter().interpret() : 0) - getRightParameter().interpret();
+    public Node interpret() {
+        int leftResult = ((NumberValue)(getLeftParameter().interpret() != null ? getLeftParameter().interpret() : 0)).getValue();
+        int rightResult = ((NumberValue)getRightParameter().interpret()).getValue();
+        return new NumberValue(leftResult - rightResult);
     }
 }

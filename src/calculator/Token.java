@@ -38,7 +38,8 @@ public class Token {
     enum Type {
         number,
         operator,
-        parenthesis
+        parenthesis,
+        identifier
     }
 
     @Override

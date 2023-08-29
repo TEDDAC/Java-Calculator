@@ -1,8 +1,18 @@
 package calculator.nodes;
 
-public class NullValue implements Node{
+import calculator.Context;
+
+public class NullValue extends Node {
+    public NullValue(Context context) {
+        super(context);
+    }
+
+    public NullValue(){
+        this(null);
+    }
+
     @Override
-    public int interpret() {
-        return 0;
+    public Node interpret() {
+        return new NumberValue(0);
     }
 }

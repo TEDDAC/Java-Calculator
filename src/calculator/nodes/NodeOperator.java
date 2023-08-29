@@ -1,8 +1,14 @@
 package calculator.nodes;
 
-public abstract class NodeOperator implements Node {
+import calculator.Context;
+
+public abstract class NodeOperator extends Node {
     private Node leftParameter;
     private Node rightParameter;
+
+    public NodeOperator(Context context) {
+        super(context);
+    }
 
     public Node getLeftParameter() {
         return leftParameter;

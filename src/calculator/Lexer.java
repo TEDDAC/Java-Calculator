@@ -20,6 +20,7 @@ public class Lexer {
             switch(c){
                 case '+':
                 case '-':
+                case '=':
                     tokens.add(new Token(String.valueOf(c), Token.Type.operator, 0));
                     expressionList.remove(0);
                     break;
@@ -35,7 +36,7 @@ public class Lexer {
                     break;
                 default:
                     stringBuilder = new StringBuilder();
-                    while(Character.isDigit(c)){
+                    while(Character.isDigit(c) || Character.isAlphabetic(c)){
                         stringBuilder.append(c);
                         expressionList.remove(0);
                         if(expressionList.size() == 0) {
@@ -43,7 +44,13 @@ public class Lexer {
                         }
                         c = expressionList.get(0);
                     }
-                    tokens.add(new Token(stringBuilder.toString(), Token.Type.number, 0));
+                    String s = stringBuilder.toString();
+                    if(s.matches("^[0-9]$")){
+                        tokens.add(new Token(stringBuilder.toString(), Token.Type.number, 0));
+                    } else {
+                        tokens.add(new Token(stringBuilder.toString(), Token.Type.identifier, 0));
+                    }
+
                     break;
             }
         }

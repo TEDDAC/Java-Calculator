@@ -1,10 +1,17 @@
 package calculator.nodes;
 
-public class NumberValue implements Node {
+import calculator.Context;
+
+public class NumberValue extends Node {
     private int value;
 
-    public NumberValue(int value) {
+    public NumberValue(Context context, int value){
+        super(context);
         this.value = value;
+    }
+
+    public NumberValue(int value) {
+        this(null, value);
     }
 
     public int getValue() {
@@ -16,7 +23,7 @@ public class NumberValue implements Node {
     }
 
     @Override
-    public int interpret() {
-        return value;
+    public Node interpret() {
+        return this;
     }
 }
