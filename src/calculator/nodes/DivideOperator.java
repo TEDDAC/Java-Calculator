@@ -1,27 +1,9 @@
 package calculator.nodes;
 
-public class DivideOperator implements Node {
-    private Node leftParameter;
-    private Node rightParameter;
-
-    public Node getLeftParameter() {
-        return leftParameter;
-    }
-
-    public void setLeftParameter(Node leftParameter) {
-        this.leftParameter = leftParameter;
-    }
-
-    public Node getRightParameter() {
-        return rightParameter;
-    }
-
-    public void setRightParameter(Node rightParameter) {
-        this.rightParameter = rightParameter;
-    }
+public class DivideOperator extends NodeOperator {
 
     @Override
     public int interpret() {
-        return leftParameter.interpret() / rightParameter.interpret();
+        return getLeftParameter().interpret() / getRightParameter().interpret();
     }
 }

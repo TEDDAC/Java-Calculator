@@ -3,10 +3,12 @@ package calculator;
 public class Token {
     private String value;
     private Type type;
+    private int precedence;
 
-    public Token(String value, Type type){
+    public Token(String value, Type type, int precedence){
         this.value = value;
         this.type = type;
+        this.precedence = precedence;
     }
 
     public String getValue() {
@@ -23,6 +25,14 @@ public class Token {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public int getPrecedence() {
+        return precedence;
+    }
+
+    public void setPrecedence(int precedence) {
+        this.precedence = precedence;
     }
 
     enum Type {

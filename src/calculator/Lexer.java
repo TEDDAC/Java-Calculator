@@ -20,14 +20,17 @@ public class Lexer {
             switch(c){
                 case '+':
                 case '-':
+                    tokens.add(new Token(String.valueOf(c), Token.Type.operator, 0));
+                    expressionList.remove(0);
+                    break;
                 case '*':
                 case '/':
-                    tokens.add(new Token(String.valueOf(c), Token.Type.operator));
+                    tokens.add(new Token(String.valueOf(c), Token.Type.operator, 5));
                     expressionList.remove(0);
                     break;
                 case '(':
                 case ')':
-                    tokens.add(new Token(String.valueOf(c), Token.Type.parenthesis));
+                    tokens.add(new Token(String.valueOf(c), Token.Type.parenthesis, 0));
                     expressionList.remove(0);
                     break;
                 default:
@@ -40,7 +43,7 @@ public class Lexer {
                         }
                         c = expressionList.get(0);
                     }
-                    tokens.add(new Token(stringBuilder.toString(), Token.Type.parenthesis));
+                    tokens.add(new Token(stringBuilder.toString(), Token.Type.number, 0));
                     break;
             }
         }
