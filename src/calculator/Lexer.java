@@ -34,6 +34,9 @@ public class Lexer {
                     tokens.add(new Token(String.valueOf(c), Token.Type.parenthesis, 0));
                     expressionList.remove(0);
                     break;
+                case ',':
+                    expressionList.remove(0);
+                    break;
                 default:
                     stringBuilder = new StringBuilder();
                     while(Character.isDigit(c) || Character.isAlphabetic(c)){

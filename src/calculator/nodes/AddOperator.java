@@ -9,8 +9,8 @@ public class AddOperator extends NodeOperator {
 
     @Override
     public Node interpret() {
-        int leftResult = ((NumberValue)(getLeftParameter() != null ? getLeftParameter().interpret() : 0)).getValue();
-        int rightResult = ((NumberValue)getRightParameter().interpret()).getValue();
+        double leftResult = ((NumberValue)(getLeftParameter() != null ? getLeftParameter().interpret() : 0)).getValue();
+        double rightResult = ((NumberValue)getRightParameter().interpret()).getValue();
         return new NumberValue(leftResult + rightResult);
     }
 }

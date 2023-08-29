@@ -10,8 +10,8 @@ public class SubstractOperator extends NodeOperator {
 
     @Override
     public Node interpret() {
-        int leftResult = ((NumberValue)(getLeftParameter().interpret() != null ? getLeftParameter().interpret() : 0)).getValue();
-        int rightResult = ((NumberValue)getRightParameter().interpret()).getValue();
+        double leftResult = ((NumberValue)(getLeftParameter().interpret() != null ? getLeftParameter().interpret() : 0)).getValue();
+        double rightResult = ((NumberValue)getRightParameter().interpret()).getValue();
         return new NumberValue(leftResult - rightResult);
     }
 }

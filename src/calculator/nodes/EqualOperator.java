@@ -10,8 +10,8 @@ public class EqualOperator extends NodeOperator {
     @Override
     public Node interpret() {
         Node node = new NumberValue(((NumberValue)getRightParameter().interpret()).getValue());
-        String name = ((Variable)getLeftParameter()).getIdentifier();
+        String name = ((Identifier)getLeftParameter()).getIdentifier();
         this.getContext().setVariable(name, node);
-        return new NullValue();
+        return node;
     }
 }

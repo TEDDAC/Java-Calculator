@@ -70,7 +70,7 @@ public class Parser {
                 node.setLeftParameter(Parser.createNode(tokens, context));
                 return node;
             } else if (t.getType() == Token.Type.identifier) {
-                return new Variable(context, t.getValue());
+                return new Identifier(context, t.getValue());
             } else {
                 return new NumberValue(Integer.parseInt(t.getValue()));
             }

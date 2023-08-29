@@ -17,7 +17,7 @@ public class Main {
         IWriter writer = new StdWriter();
 
         Context globalContext = new Context();
-        globalContext.setVariable("monNombre", new NumberValue(4));
+        globalContext.setVariable("pi", new NumberValue(Math.PI));
 
         String expression = reader.readLine().trim();
         while(!expression.isEmpty()){
