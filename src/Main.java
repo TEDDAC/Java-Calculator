@@ -5,6 +5,7 @@ import calculator.Token;
 import calculator.nodes.Block;
 import calculator.nodes.Node;
 import calculator.nodes.NumberValue;
+import environnement.GlobalContext;
 import io.*;
 
 import java.io.File;
@@ -17,8 +18,7 @@ public class Main {
         IReader reader = new FileReader(file);
         IWriter writer = new StdWriter();
 
-        Context globalContext = new Context();
-        globalContext.setVariable("pi", new NumberValue(Math.PI));
+        Context globalContext = new GlobalContext();
         Block program = new Block(globalContext);
 
         String expression = reader.readLine().trim();
