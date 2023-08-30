@@ -2,6 +2,7 @@ package calculator;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 public class Lexer {
     public static List<Token> lexer(String expression){
@@ -58,6 +59,46 @@ public class Lexer {
             }
         }
 
-        return tokens;
+        return Lexer.shuntingYard(tokens);
+    }
+
+
+
+    /**
+     * Convert infix notation into RPN.
+     * @param tokens
+     * @return
+     */
+    public static List<Token> shuntingYard(List<Token> tokens){
+        List<Token> output = new LinkedList<>();
+        Stack<Token> stack = new Stack<>();
+
+        for(Token token : tokens){
+            if(token.getType() == Token.Type.operator){
+                while(!stack.isEmpty() && stack.peek().getType() == Token.Type.operator){
+                    if(token.getPrecedence() <= stack.peek().getPrecedence()){
+                        output.add(stack.pop());
+                        continue;
+                    }
+                    break;
+                }
+                stack.push(token);
+            } else if (token.getType() == Token.Type.parenthesis && token.getValue().equals("(")){
+                stack.push(token);
+            } else if (token.getType() == Token.Type.parenthesis && token.getValue().equals(")")){
+                while (!stack.isEmpty() && !stack.peek().getValue().equals("(")){
+                    output.add(stack.pop());
+                }
+                stack.pop();
+            } else {
+                output.add(token);
+            }
+        }
+
+        while(!stack.isEmpty()){
+            output.add(stack.pop());
+        }
+
+        return output;
     }
 }
