@@ -2,6 +2,7 @@ import calculator.Context;
 import calculator.Lexer;
 import calculator.Parser;
 import calculator.Token;
+import calculator.nodes.Block;
 import calculator.nodes.Node;
 import calculator.nodes.NumberValue;
 import io.*;
@@ -18,14 +19,16 @@ public class Main {
 
         Context globalContext = new Context();
         globalContext.setVariable("pi", new NumberValue(Math.PI));
+        Block program = new Block(globalContext);
 
         String expression = reader.readLine().trim();
         while(!expression.isEmpty()){
             List<Token> tokens = Lexer.lexer(expression);
             Node node = Parser.parse(tokens, globalContext);
-            Node result = node.interpret();
-            writer.writeLine(String.valueOf(((NumberValue)result.interpret()).getValue()));
+            program.addInstruction(node);
             expression = reader.readLine().trim();
         }
+
+        program.interpret();
     }
 }
