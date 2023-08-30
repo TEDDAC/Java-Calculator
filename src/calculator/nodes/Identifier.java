@@ -5,8 +5,7 @@ import calculator.Context;
 public class Identifier extends Node{
     private final String identifier;
 
-    public Identifier(Context context, String identifier) {
-        super(context);
+    public Identifier(String identifier) {
         this.identifier = identifier;
     }
 
@@ -15,7 +14,7 @@ public class Identifier extends Node{
     }
 
     @Override
-    public Node interpret() {
-        return getContext().getVariable(identifier);
+    public Node interpret(Context context) {
+        return context.getVariable(identifier);
     }
 }

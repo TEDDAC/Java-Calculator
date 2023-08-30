@@ -8,15 +8,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Context {
-    private final Map<String, Node> variables = new HashMap<>();
+    private final Map<String, Node> variables;
 
+    private final Context parent;
 
-    public Context(Map<String, Node> variables) {
+    public Context(Context parent, Map<String, Node> variables) {
+        this.parent = parent;
+        this.variables = new HashMap<>();
         setVariables(variables);
     }
 
-    public Context(){
+    public Context(Map<String, Node> variables){
+        this(null, variables);
+    }
 
+    public Context(){
+        this(null, null);
     }
 
     public Map<String, Node> getVariables(){
@@ -24,7 +31,9 @@ public class Context {
     }
 
     public void setVariables(Map<String, Node> variables) {
-        this.variables.putAll(variables);
+        if(variables != null) {
+            this.variables.putAll(variables);
+        }
     }
 
     public void setVariable(String name, Node value){
@@ -33,7 +42,9 @@ public class Context {
 
     public Node getVariable(String name){
         Node value = this.variables.get(name);
-        if(value == null){
+        if(parent != null){
+            return parent.getVariable(name);
+        } else if(value == null){
             throw new MemberNotFoundException("No member named '" + name + "' found in context");
         }
         return value;

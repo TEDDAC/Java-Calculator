@@ -5,17 +5,12 @@ import calculator.Context;
 public class StringValue extends Node{
     private String value;
 
-    public StringValue(Context context, String value) {
-        super(context);
+    public StringValue(String value) {
         this.value = value;
     }
 
-    public StringValue(String value){
-        this(null, value);
-    }
-
     @Override
-    public Node interpret() {
+    public Node interpret(Context context) {
         return this;
     }
 

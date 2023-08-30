@@ -19,16 +19,16 @@ public class Main {
         IWriter writer = new StdWriter();
 
         Context globalContext = new GlobalContext();
-        Block program = new Block(globalContext);
+        Block program = new Block();
 
         String expression = reader.readLine().trim();
         while(!expression.isEmpty()){
             List<Token> tokens = Lexer.lexer(expression);
-            Node node = Parser.parse(tokens, globalContext);
+            Node node = Parser.parse(tokens);
             program.addInstruction(node);
             expression = reader.readLine().trim();
         }
 
-        program.interpret();
+        program.interpret(globalContext);
     }
 }

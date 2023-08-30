@@ -3,16 +3,9 @@ package calculator.nodes;
 import calculator.Context;
 
 public class NullValue extends Node {
-    public NullValue(Context context) {
-        super(context);
-    }
-
-    public NullValue(){
-        this(null);
-    }
 
     @Override
-    public Node interpret() {
+    public Node interpret(Context context) {
         return new NumberValue(0);
     }
 }

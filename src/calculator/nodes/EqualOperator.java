@@ -3,15 +3,12 @@ package calculator.nodes;
 import calculator.Context;
 
 public class EqualOperator extends NodeOperator {
-    public EqualOperator(Context context) {
-        super(context);
-    }
 
     @Override
-    public Node interpret() {
-        Node node = new NumberValue(((NumberValue)getRightParameter().interpret()).getValue());
+    public Node interpret(Context context) {
+        Node node = new NumberValue(((NumberValue)getRightParameter().interpret(context)).getValue());
         String name = ((Identifier)getLeftParameter()).getIdentifier();
-        this.getContext().setVariable(name, node);
+        context.setVariable(name, node);
         return node;
     }
 }

@@ -22,6 +22,7 @@ public class Lexer {
                 case '+':
                 case '-':
                 case '=':
+                case ',':
                     tokens.add(new Token(String.valueOf(c), Token.Type.operator, 0));
                     expressionList.remove(0);
                     break;
@@ -33,9 +34,6 @@ public class Lexer {
                 case '(':
                 case ')':
                     tokens.add(new Token(String.valueOf(c), Token.Type.parenthesis, 0));
-                    expressionList.remove(0);
-                    break;
-                case ',':
                     expressionList.remove(0);
                     break;
                 default:
@@ -51,6 +49,8 @@ public class Lexer {
                     String s = stringBuilder.toString();
                     if(s.matches("^[0-9]$")){
                         tokens.add(new Token(stringBuilder.toString(), Token.Type.number, 0));
+                    } else if (c == '(') {
+                        tokens.add(new Token(stringBuilder.toString(), Token.Type.blockIdentifier, 10));
                     } else {
                         tokens.add(new Token(stringBuilder.toString(), Token.Type.identifier, 0));
                     }
@@ -73,8 +73,9 @@ public class Lexer {
         List<Token> output = new LinkedList<>();
         Stack<Token> stack = new Stack<>();
 
-        for(Token token : tokens){
-            if(token.getType() == Token.Type.operator){
+        for(int i = 0; i < tokens.size(); i++){
+            Token token = tokens.get(i);
+            if(token.getType() == Token.Type.operator || token.getType() == Token.Type.blockIdentifier){
                 while(!stack.isEmpty() && stack.peek().getType() == Token.Type.operator){
                     if(token.getPrecedence() <= stack.peek().getPrecedence()){
                         output.add(stack.pop());
@@ -90,6 +91,9 @@ public class Lexer {
                     output.add(stack.pop());
                 }
                 stack.pop();
+                if(stack.peek().getType() == Token.Type.blockIdentifier){
+                    output.add(stack.pop());
+                }
             } else {
                 output.add(token);
             }

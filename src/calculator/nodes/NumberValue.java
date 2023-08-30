@@ -5,13 +5,8 @@ import calculator.Context;
 public class NumberValue extends Node {
     private double value;
 
-    public NumberValue(Context context, double value){
-        super(context);
+    public NumberValue(double value){
         this.value = value;
-    }
-
-    public NumberValue(double value) {
-        this(null, value);
     }
 
     public double getValue() {
@@ -23,7 +18,7 @@ public class NumberValue extends Node {
     }
 
     @Override
-    public Node interpret() {
+    public Node interpret(Context context) {
         return this;
     }
 }

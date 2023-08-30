@@ -39,7 +39,8 @@ public class Token {
         number,
         operator,
         parenthesis,
-        identifier
+        identifier,
+        blockIdentifier
     }
 
     @Override
