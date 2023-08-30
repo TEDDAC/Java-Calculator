@@ -1,6 +1,8 @@
 package calculator.nodes;
 
 import calculator.Context;
+import calculator.exceptions.NotAFunctionException;
+import calculator.exceptions.NotInterpretableException;
 
 public class Identifier extends Node{
     private final String identifier;
@@ -14,7 +16,7 @@ public class Identifier extends Node{
     }
 
     @Override
-    public Node interpret(Context context) {
+    public Node interpret(Context context) throws NotInterpretableException, NotAFunctionException {
         return context.getVariable(identifier);
     }
 }

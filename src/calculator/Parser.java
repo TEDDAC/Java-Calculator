@@ -2,6 +2,7 @@ package calculator;
 
 import calculator.nodes.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -25,6 +26,7 @@ public class Parser {
                     case "*" -> new MultiplyOperator();
                     case "/" -> new DivideOperator();
                     case "=" -> new EqualOperator();
+                    case "," -> new CommaOperator();
                     default -> new AddOperator();
                 };
                 node.setRightParameter(Parser.createNode(tokens));
@@ -32,10 +34,16 @@ public class Parser {
                 return node;
             } else if (t.getType() == Token.Type.identifier) {
                 return new Identifier(t.getValue());
-            } /*else if(t.getType() == Token.Type.blockIdentifier) {
-                Node params = Parser.createNode(tokens);
-                return new FunctionCall();
-            }*/ else {
+            } else if(t.getType() == Token.Type.blockIdentifier) {
+                List<Node> params = new ArrayList<>();
+                Node paramsNode = Parser.createNode(tokens);
+                if(paramsNode instanceof CommaOperator){
+                    params.addAll(((CommaOperator) paramsNode).getParams());
+                } else {
+                    params.add(paramsNode);
+                }
+                return new FunctionCall(t.getValue(), params);
+            } else {
                 return new NumberValue(Integer.parseInt(t.getValue()));
             }
         } else {

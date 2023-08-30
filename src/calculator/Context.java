@@ -22,6 +22,10 @@ public class Context {
         this(null, variables);
     }
 
+    public Context(Context parent) {
+        this(parent, null);
+    }
+
     public Context(){
         this(null, null);
     }
@@ -42,9 +46,10 @@ public class Context {
 
     public Node getVariable(String name){
         Node value = this.variables.get(name);
-        if(parent != null){
-            return parent.getVariable(name);
-        } else if(value == null){
+        if(value == null){
+            if(parent != null){
+                return parent.getVariable(name);
+            }
             throw new MemberNotFoundException("No member named '" + name + "' found in context");
         }
         return value;
