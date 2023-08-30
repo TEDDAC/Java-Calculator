@@ -16,10 +16,13 @@ public class FileReader implements IReader {
 
     @Override
     public String readLine() {
-        if(!scanner.hasNextLine()){
-            return "";
+        while(scanner.hasNextLine()) {
+            String s = scanner.nextLine();
+            if(!s.trim().isEmpty()){
+                return s;
+            }
         }
-        return scanner.nextLine();
+        return "";
     }
 
     @Override
